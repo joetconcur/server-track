@@ -30,6 +30,12 @@ describe('loadModel', function() {
             assert.isFalse(result.valid);
         });
 
+        it('should return valid result when the load\'s serverName has only one character', function() {
+            loadSample.serverName = "  a  ";
+            var result = loadModel.validate(loadSample);
+            assert.isTrue(result.valid);
+        });
+
         it('should return invalid result when the load\'s cpu is missing', function() {
             delete loadSample.cpu;
             var result = loadModel.validate(loadSample);
