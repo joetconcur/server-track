@@ -44,7 +44,12 @@ router.post('/loads', function(req, res){
 router.get('/loads/:server_name', function(req, res) {
     var serverName = req.params.server_name;
 
-    loadModel.getReport(serverName, function(report) {
+    loadModel.getReport(serverName, function(err, report) {
+        if(err) {
+            logger.error(err);
+            res.status(500).send({message: 'Internal error.'});
+        }
+
         // return the response
         res.json(report);
     });

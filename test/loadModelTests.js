@@ -100,7 +100,11 @@ describe('loadModel', function() {
 
     describe('#getReport', function() {
         it('should return report with empty avg values when the the loads array is empty', function(done) {
-            loadModel.getReport('server1', function(report) {
+            loadModel.getReport('server1', function(err, report) {
+                if (err) {
+                    throw err;
+                }
+
                 assert.strictEqual(Object.keys(report.avgLast60Minutes).length, 0);
                 assert.strictEqual(Object.keys(report.avgLast24Hours).length, 0);
                 done();
@@ -110,7 +114,11 @@ describe('loadModel', function() {
         it('should return report with "1" groups when querying the server just added 1 ms ago', function(done) {
             loadModel.addLoad(loadSample);
             setTimeout(function(){
-                loadModel.getReport('server1', function(report) {
+                loadModel.getReport('server1', function(err, report) {
+                    if (err) {
+                        throw err;
+                    }
+
                     assert.strictEqual(Object.keys(report.avgLast60Minutes).length, 1);
                     assert.strictEqual(Object.keys(report.avgLast24Hours).length, 1);
                     assert.isNumber(report.avgLast60Minutes["1"].avgCPU);
@@ -119,18 +127,22 @@ describe('loadModel', function() {
                     assert.isNumber(report.avgLast24Hours["1"].avgRAM);
                     done();
                 });
-            }, 1);
+            }, 10);
         });
 
         it('should return report with empty avg values when server being queried is not yet added', function(done) {
             loadModel.addLoad(loadSample);
             setTimeout(function(){
-                loadModel.getReport('server2', function(report) {
+                loadModel.getReport('server2', function(err, report) {
+                    if (err) {
+                        throw err;
+                    }
+
                     assert.strictEqual(Object.keys(report.avgLast60Minutes).length, 0);
                     assert.strictEqual(Object.keys(report.avgLast24Hours).length, 0);
                     done();
                 });
-            }, 1);
+            }, 10);
         });
 
         it('should return correct avg values', function(done) {
@@ -155,7 +167,11 @@ describe('loadModel', function() {
                 ram: 20
             });
             setTimeout(function(){
-                loadModel.getReport('server1', function(report) {
+                loadModel.getReport('server1', function(err, report) {
+                    if (err) {
+                        throw err;
+                    }
+
                     assert.strictEqual(Object.keys(report.avgLast60Minutes).length, 1);
                     assert.strictEqual(Object.keys(report.avgLast24Hours).length, 1);
                     assert.strictEqual(report.avgLast60Minutes["1"].avgCPU, (10 + 20 + 30 + 40) / 4);
@@ -164,7 +180,7 @@ describe('loadModel', function() {
                     assert.strictEqual(report.avgLast24Hours["1"].avgRAM, (5 + 10 + 15 + 20) / 4);
                     done();
                 });
-            }, 1);
+            }, 10);
         });
 
         it('should return correct grouping in avg values for the last 60 minutes', function(done) {
@@ -193,7 +209,11 @@ describe('loadModel', function() {
                 dateTime: moment().subtract(100, 'seconds')._d
             });
             setTimeout(function(){
-                loadModel.getReport('server1', function(report) {
+                loadModel.getReport('server1', function(err, report) {
+                    if (err) {
+                        throw err;
+                    }
+
                     assert.strictEqual(Object.keys(report.avgLast60Minutes).length, 2);
                     assert.strictEqual(report.avgLast60Minutes["1"].avgCPU, (10 + 20) / 2);
                     assert.strictEqual(report.avgLast60Minutes["1"].avgRAM, (20 + 30) / 2);
@@ -206,7 +226,7 @@ describe('loadModel', function() {
 
                     done();
                 });
-            }, 1);
+            }, 10);
         });
 
         it('should return correct grouping in avg values for the last 24 hours', function(done) {
@@ -235,7 +255,11 @@ describe('loadModel', function() {
                 dateTime: moment().subtract(100, 'minutes')._d
             });
             setTimeout(function(){
-                loadModel.getReport('server1', function(report) {
+                loadModel.getReport('server1', function(err, report) {
+                    if (err) {
+                        throw err;
+                    }
+
                     assert.strictEqual(Object.keys(report.avgLast60Minutes).length, 1);
                     assert.strictEqual(report.avgLast60Minutes["1"].avgCPU, 10);
                     assert.strictEqual(report.avgLast60Minutes["1"].avgRAM, 20);
@@ -248,7 +272,7 @@ describe('loadModel', function() {
 
                     done();
                 });
-            }, 1);
+            }, 10);
         });
     });
 });
