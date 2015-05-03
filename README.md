@@ -86,5 +86,7 @@ This returns data (if it has any) for the given server:
 - For CI, run `grunt test` to verify the build
 
 ##TODO
-- Persist the data so that we can retrieve old data even when the server goes down.
+- Further reduce the size of the filtered loads used to query by time.
+- Use async for filter and reduce.
 - Load tests
+- Persist the data so that we can retrieve old data even when the server goes down.
