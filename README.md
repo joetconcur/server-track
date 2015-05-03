@@ -77,6 +77,8 @@ This returns data (if it has any) for the given server:
 
 - To run tests, run `npm test`
 
+- To get code coverage, run `npm run coverage`
+
 - To start the service, run
     1. `npm install`
     2. `node app.js`
