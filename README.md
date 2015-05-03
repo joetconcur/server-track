@@ -30,8 +30,42 @@ Note that cpu and ram values are percentage values.
 }
 ```
 
+Successful request returns the following response:
+```json
+{
+    "message": "success"
+}
+```
+
 ## Display loads for a given server
 Send a GET request to the server, `http://localhost:8090/servertrack/loads/servername`
+
+This returns data (if it has any) for the given server:
+- A list of the average load values for the last 60 minutes broken down by minute
+- A list of the average load values for the last 24 hours broken down by hour
+
+### Sample GET response
+```json
+{
+	"serverName" : "server1",
+	"avgLast60Minutes" : {
+		"1" : {
+			"avgCPU" : 15,
+			"avgRAM" : 10
+		}
+	},
+	"avgLast24Hours" : {
+		"1" : {
+			"avgCPU" : 15,
+			"avgRAM" : 10
+		},
+		"2" : {
+			"avgCPU" : 20,
+			"avgRAM" : 15
+		}
+	}
+}
+```
 
 ##Server setup
 - Install [Node.js](https://nodejs.org/)
