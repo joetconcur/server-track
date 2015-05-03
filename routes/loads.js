@@ -48,6 +48,7 @@ router.get('/loads/:server_name', function(req, res) {
         if(err) {
             logger.error(err);
             res.status(500).send({message: 'Internal error.'});
+            return;
         }
 
         // return the response
